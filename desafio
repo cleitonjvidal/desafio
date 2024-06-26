@@ -1,0 +1,73 @@
+# globais
+reservas = {}
+capacidade = 20
+horarios_disponiveis = [
+   "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
+   "21:00", "21:30", "22:00", "22:30", "23:00"
+]
+
+
+# faz a reserva
+def fazer_reserva():
+   print("Horarios disponivies \n",horarios_disponiveis)
+   print("Capacidade disponivel\n",capacidade, "pessoas")
+   nome_cliente = input("Digite o seu nome: ")
+   num_pessoas = int(input("Digite o número de pessoas: "))
+   horario = input("Digite o horário da reserva (HH:MM): ")
+
+
+   if num_pessoas > capacidade:
+       print(f"Desculpe, não temos capacidade para {num_pessoas} pessoas.")
+   elif horario not in horarios_disponiveis:
+       print(f"Desculpe, {horario} não é um horário válido para reserva.")
+   elif horario in reservas:
+       print(f"Desculpe, o horário {horario} já está reservado.")
+   else:
+       reservas[horario] = {'nome_cliente': nome_cliente, 'num_pessoas': num_pessoas}
+       print(f"Reserva feita para {num_pessoas} pessoas às {horario}.")
+
+
+# cancela a reserva
+def cancelar_reserva():
+   horario = input("Digite o horário da reserva que deseja cancelar (HH:MM): ")
+
+
+   if horario in reservas:
+       del reservas[horario]
+       print(f"Reserva para o horário {horario} cancelada com sucesso.")
+   else:
+       print(f"Não há reserva para o horário {horario}.")
+
+
+# mostra as reservas
+def mostrar_reservas():
+   if not reservas:
+       print("Não há reservas no momento.")
+   else:
+       print("Reservas:")
+       for horario, reserva in reservas.items():
+           print(f"Horário: {horario}, Cliente: {reserva['nome_cliente']}, Número de pessoas: {reserva['num_pessoas']}")
+
+
+while True:
+   print("\nMenu:")
+   print("1. Fazer reserva")
+   print("2. Cancelar reserva")
+   print("3. Mostrar reservas")
+   print("4. Sair")
+
+
+   opcao = input("Escolha uma opção (1/2/3/4): ")
+
+
+   if opcao == "1":
+       fazer_reserva()
+   elif opcao == "2":
+       cancelar_reserva()
+   elif opcao == "3":
+       mostrar_reservas()
+   elif opcao == "4":
+       print("Saindo...")
+       break
+   else:
+       print("Opção inválida. Escolha novamente.")
